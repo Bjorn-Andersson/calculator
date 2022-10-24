@@ -1,0 +1,46 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+.textArea {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  height: 20vh;
+  font-size: 120px;
+}
+.textAreaText {
+  padding-right: 20px;
+}
+.gridArea {
+  display: grid;
+  height: 80vh;
+  grid-template-columns: repeat(4, 25%);
+  grid-template-rows: 20%;
+}
+.gridUnit {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}
+.button {
+  background-color: lightgrey;
+  font-size: 30px;
+  height: 100%;
+  width: calc(100vw / 4);
+  cursor: pointer;
+  border: 3px solid black;
+  border-bottom: none;
+  border-left: none;
+}
+.button:hover {
+  background-color: rgb(170, 169, 169);
+}
+.button:disabled {
+  background-color: lightgrey;
+  font-size: 30px;
+  color: black;
+  border: 3px solid black;
+  border-bottom: none;
+  border-left: none;
+}
