@@ -37,8 +37,8 @@ export default function App() {
   }
 
   return (
+    //gör om med en loop och index istället
     <>
-      //gör om med en loop och index istället
       <div className="textArea">
         <div className="textAreaText">{textValue}</div>
       </div>
