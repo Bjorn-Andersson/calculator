@@ -20,7 +20,7 @@ export default function App() {
 
   function handleMath() {
     textValue = textValue.replace(/\s/g, "");
-    setTextValue(eval(textValue));
+    //setTextValue(eval(textValue));
     //ANVÄND ALDRIG EVAL()
     // function looseJsonParse(obj) {return Function(`"use strict";return (${obj})`)();}
     //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval#never_use_eval!
