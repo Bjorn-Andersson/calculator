@@ -5,6 +5,28 @@ export default function App() {
   let [textValue, setTextValue] = useState(0);
   let [disabled, setDisabled] = useState(false);
   let previousValue;
+  let buttonsLayoutArray = [
+    { onClick: handleAC, text: "AC" },
+    { onClick: handleNegative, text: "+/-" },
+    { onClick: handlePercent, text: "%" },
+    { onClick: () => setTextValue(textValue + " / "), text: "÷" },
+    { onClick: () => handleClick(7), text: "7" },
+    { onClick: () => handleClick(8), text: "8" },
+    { onClick: () => handleClick(9), text: "9" },
+    { onClick: () => setTextValue(textValue + " * "), text: "*" },
+    { onClick: () => handleClick(4), text: "4" },
+    { onClick: () => handleClick(5), text: "5" },
+    { onClick: () => handleClick(6), text: "6" },
+    { onClick: () => setTextValue(textValue + " - "), text: "-" },
+    { onClick: () => handleClick(1), text: "1" },
+    { onClick: () => handleClick(2), text: "2" },
+    { onClick: () => handleClick(3), text: "3" },
+    { onClick: () => setTextValue(textValue + " + "), text: "+" },
+    { onClick: () => handleClick(0), text: "0" },
+    { onClick: handleNegative, text: "FILLER" },
+    { onClick: () => handleClick("."), text: ".", disabled: disabled },
+    { onClick: handleMath, text: "=" },
+  ];
 
   function handleClick(value) {
     if (textValue === 0) {
@@ -17,6 +39,8 @@ export default function App() {
       setTextValue(String(previousValue) + value);
     }
   }
+
+  function handlePercent() {}
 
   function handleMath() {
     textValue = textValue.replace(/\s/g, "");
@@ -38,198 +62,19 @@ export default function App() {
 
   return (
     //gör om med en loop och index istället
+    //kan jag göra detta med grid?
     <>
       <div className="textArea">
         <div className="textAreaText">{textValue}</div>
       </div>
       <div className="gridArea">
-        <div className="gridUnit">
-          <button
-            onClick={() => {
-              handleAC();
-            }}
-            className="button"
-          >
-            AC
-          </button>
-        </div>
-        <div className="gridUnit">
-          <button
-            onClick={() => {
-              handleNegative();
-            }}
-            className="button"
-          >
-            +/-
-          </button>
-        </div>
-        <div className="gridUnit">
-          <button className="button">%</button>
-        </div>
-        <div className="gridUnit">
-          <button
-            onClick={() => {
-              setTextValue(textValue + " / ");
-            }}
-            className="button"
-          >
-            ÷
-          </button>
-        </div>
-        <div className="gridUnit">
-          <button
-            onClick={() => {
-              handleClick(7);
-            }}
-            className="button"
-          >
-            7
-          </button>
-        </div>
-        <div className="gridUnit">
-          <button
-            onClick={() => {
-              handleClick(8);
-            }}
-            className="button"
-          >
-            8
-          </button>
-        </div>
-        <div className="gridUnit">
-          <button
-            onClick={() => {
-              handleClick(9);
-            }}
-            className="button"
-          >
-            9
-          </button>
-        </div>
-        <div className="gridUnit">
-          <button
-            onClick={() => {
-              setTextValue(textValue + " * ");
-            }}
-            className="button"
-          >
-            *
-          </button>
-        </div>
-        <div className="gridUnit">
-          <button
-            onClick={() => {
-              handleClick(4);
-            }}
-            className="button"
-          >
-            4
-          </button>
-        </div>
-        <div className="gridUnit">
-          <button
-            onClick={() => {
-              handleClick(5);
-            }}
-            className="button"
-          >
-            5
-          </button>
-        </div>
-        <div className="gridUnit">
-          <button
-            onClick={() => {
-              handleClick(6);
-            }}
-            className="button"
-          >
-            6
-          </button>
-        </div>
-        <div className="gridUnit">
-          <button
-            onClick={() => {
-              setTextValue(textValue + " - ");
-            }}
-            className="button"
-          >
-            -
-          </button>
-        </div>
-        <div className="gridUnit">
-          <button
-            onClick={() => {
-              handleClick(1);
-            }}
-            className="button"
-          >
-            1
-          </button>
-        </div>
-        <div className="gridUnit">
-          <button
-            onClick={() => {
-              handleClick(2);
-            }}
-            className="button"
-          >
-            2
-          </button>
-        </div>
-        <div className="gridUnit">
-          <button
-            onClick={() => {
-              handleClick(3);
-            }}
-            className="button"
-          >
-            3
-          </button>
-        </div>
-        <div className="gridUnit">
-          <button
-            onClick={() => {
-              setTextValue(textValue + " + ");
-            }}
-            className="button"
-          >
-            +
-          </button>
-        </div>
-        <div className="gridUnit">
-          <button
-            onClick={() => {
-              handleClick(0);
-            }}
-            className="button"
-          >
-            0
-          </button>
-        </div>
-        <div className="gridUnit">
-          <button className="button">FILLER</button>
-        </div>
-        <div className="gridUnit">
-          <button
-            disabled={disabled}
-            onClick={() => {
-              handleClick(".");
-            }}
-            className="button"
-          >
-            .
-          </button>
-        </div>
-        <div className="gridUnit">
-          <button
-            onClick={() => {
-              handleMath();
-            }}
-            className="button"
-          >
-            =
-          </button>
-        </div>
+        {buttonsLayoutArray.map(({ onClick, text, disabled }) => (
+          <div className="gridUnit">
+            <button disabled={disabled} onClick={onClick} className="button">
+              {text}
+            </button>
+          </div>
+        ))}
       </div>
     </>
   );
