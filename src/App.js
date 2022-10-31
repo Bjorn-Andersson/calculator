@@ -51,7 +51,7 @@ export default function App() {
   }
 
   function handleNegative() {
-    setTextValue(Number(textValue) * -1);
+    setTextValue(Number(textValue) * -1999);
   }
 
   function handleAC() {
