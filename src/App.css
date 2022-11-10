@@ -16,12 +16,9 @@
   display: grid;
   height: 80vh;
   grid-template-columns: repeat(4, 25%);
-  grid-template-rows: 20%;
 }
-.gridUnit {
-  display: grid;
-  align-items: center;
-  justify-content: center;
+.gridZeroButton {
+  grid-column: span 2;
 }
 .button {
   background-color: lightgrey;
@@ -29,12 +26,12 @@
   height: 100%;
   width: calc(100vw / 4);
   cursor: pointer;
-  border: 3px solid black;
+  border: 2px solid black;
   border-bottom: none;
   border-left: none;
 }
 .button:hover {
-  background-color: rgb(170, 169, 169);
+  background-color: rgb(175, 175, 175);
 }
 .button:disabled {
   background-color: lightgrey;
@@ -43,4 +40,13 @@
   border: 3px solid black;
   border-bottom: none;
   border-left: none;
+}
+.mathButton {
+  background-color: rgb(170, 169, 169);
+}
+.mathButton:hover {
+  background-color: rgb(128, 128, 128);
+}
+.zeroButton {
+  width: 100%;
 }

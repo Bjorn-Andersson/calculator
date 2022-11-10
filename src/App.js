@@ -5,27 +5,123 @@ export default function App() {
   let [textValue, setTextValue] = useState(0);
   let [disabled, setDisabled] = useState(false);
   let previousValue;
-  let buttonsLayoutArray = [
-    { onClick: handleAC, text: 'AC' },
-    { onClick: handleNegative, text: '+/-' },
-    { onClick: handlePercent, text: '%' },
-    { onClick: () => setTextValue(textValue + ' / '), text: '÷' },
-    { onClick: () => handleClick(7), text: '7' },
-    { onClick: () => handleClick(8), text: '8' },
-    { onClick: () => handleClick(9), text: '9' },
-    { onClick: () => setTextValue(textValue + ' * '), text: '*' },
-    { onClick: () => handleClick(4), text: '4' },
-    { onClick: () => handleClick(5), text: '5' },
-    { onClick: () => handleClick(6), text: '6' },
-    { onClick: () => setTextValue(textValue + ' - '), text: '-' },
-    { onClick: () => handleClick(1), text: '1' },
-    { onClick: () => handleClick(2), text: '2' },
-    { onClick: () => handleClick(3), text: '3' },
-    { onClick: () => setTextValue(textValue + ' + '), text: '+' },
-    { onClick: () => handleClick(0), text: '0' },
-    { onClick: handleNegative, text: 'FILLER' },
-    { onClick: () => handleClick('.'), text: '.', disabled: disabled },
-    { onClick: handleMath, text: '=' }
+  let buttonLayoutArray = [
+    {
+      onClick: handleAC,
+      text: 'AC',
+      classes: 'button',
+      gridClasses: 'gridUnit'
+    },
+    {
+      onClick: handleNegative,
+      text: '+/-',
+      classes: 'button',
+      gridClasses: 'gridUnit'
+    },
+    {
+      onClick: handlePercent,
+      text: '%',
+      classes: 'button',
+      gridClasses: 'gridUnit'
+    },
+    {
+      onClick: () => setTextValue(textValue + ' / '),
+      text: '÷',
+      classes: 'button',
+      gridClasses: 'gridUnit'
+    },
+    {
+      onClick: () => handleClick(7),
+      text: '7',
+      classes: 'button',
+      gridClasses: 'gridUnit'
+    },
+    {
+      onClick: () => handleClick(8),
+      text: '8',
+      classes: 'button',
+      gridClasses: 'gridUnit'
+    },
+    {
+      onClick: () => handleClick(9),
+      text: '9',
+      classes: 'button',
+      gridClasses: 'gridUnit'
+    },
+    {
+      onClick: () => setTextValue(textValue + ' * '),
+      text: '*',
+      classes: 'button',
+      gridClasses: 'gridUnit'
+    },
+    {
+      onClick: () => handleClick(4),
+      text: '4',
+      classes: 'button',
+      gridClasses: 'gridUnit'
+    },
+    {
+      onClick: () => handleClick(5),
+      text: '5',
+      classes: 'button',
+      gridClasses: 'gridUnit'
+    },
+    {
+      onClick: () => handleClick(6),
+      text: '6',
+      classes: 'button',
+      gridClasses: 'gridUnit'
+    },
+    {
+      onClick: () => setTextValue(textValue + ' - '),
+      text: '-',
+      classes: 'button',
+      gridClasses: 'gridUnit'
+    },
+    {
+      onClick: () => handleClick(1),
+      text: '1',
+      classes: 'button',
+      gridClasses: 'gridUnit'
+    },
+    {
+      onClick: () => handleClick(2),
+      text: '2',
+      classes: 'button',
+      gridClasses: 'gridUnit'
+    },
+    {
+      onClick: () => handleClick(3),
+      text: '3',
+      classes: 'button',
+      gridClasses: 'gridUnit'
+    },
+    {
+      onClick: () => setTextValue(textValue + ' + '),
+      text: '+',
+      classes: 'button',
+      gridClasses: 'gridUnit'
+    },
+    {
+      onClick: () => handleClick(0),
+      text: '0',
+      classes: 'button zeroButton',
+      gridClasses: 'gridUnit gridZeroButton'
+    },
+    {
+      onClick: () => handleClick('.'),
+      text: '.',
+      disabled: disabled,
+      classes: 'button',
+      gridClasses: 'gridUnit'
+    },
+    {
+      onClick: handleMath,
+      text: '=',
+      style: { backgroundColor: 'darkgrey' },
+      classes: 'button mathButton',
+      gridClasses: 'gridMathButton gridUnit '
+    }
   ];
 
   function handleClick(value) {
@@ -66,13 +162,15 @@ export default function App() {
         <div className="textAreaText">{textValue}</div>
       </div>
       <div className="gridArea">
-        {buttonsLayoutArray.map(({ onClick, text, disabled }) => (
-          <div className="gridUnit">
-            <button disabled={disabled} onClick={onClick} className="button">
-              {text}
-            </button>
-          </div>
-        ))}
+        {buttonLayoutArray.map(
+          ({ gridClasses, onClick, text, disabled, classes }) => (
+            <div className={gridClasses}>
+              <button disabled={disabled} onClick={onClick} className={classes}>
+                {text}
+              </button>
+            </div>
+          )
+        )}
       </div>
     </>
   );
