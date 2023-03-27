@@ -2,10 +2,12 @@ import './App.css';
 import { useState } from 'react';
 
 export default function App() {
-  let [textValue, setTextValue] = useState(0);
-  let [disabled, setDisabled] = useState(false);
+  const [textValue, setTextValue] = useState(0);
+  const [disabled, setDisabled] = useState(false);
+  const [isSignSet, setIsSignSet] = useState(false);
+  const [previousSign, setPreviousSign] = useState('');
   let previousValue;
-  let buttonLayoutArray = [
+  const buttonLayoutArray = [
     {
       onClick: handleAC,
       text: 'AC',
@@ -19,13 +21,13 @@ export default function App() {
       gridClasses: 'gridUnit'
     },
     {
-      onClick: handlePercent,
+      onClick: () => handleMath('%'),
       text: '%',
       classes: 'button',
       gridClasses: 'gridUnit'
     },
     {
-      onClick: () => setTextValue(textValue + ' / '),
+      onClick: () => handleMath('/'),
       text: '÷',
       classes: 'button',
       gridClasses: 'gridUnit'
@@ -49,7 +51,7 @@ export default function App() {
       gridClasses: 'gridUnit'
     },
     {
-      onClick: () => setTextValue(textValue + ' * '),
+      onClick: () => handleMath('*'),
       text: '*',
       classes: 'button',
       gridClasses: 'gridUnit'
@@ -73,7 +75,7 @@ export default function App() {
       gridClasses: 'gridUnit'
     },
     {
-      onClick: () => setTextValue(textValue + ' - '),
+      onClick: () => handleMath('-'),
       text: '-',
       classes: 'button',
       gridClasses: 'gridUnit'
@@ -97,7 +99,7 @@ export default function App() {
       gridClasses: 'gridUnit'
     },
     {
-      onClick: () => setTextValue(textValue + ' + '),
+      onClick: () => handleMath('+'),
       text: '+',
       classes: 'button',
       gridClasses: 'gridUnit'
@@ -116,9 +118,8 @@ export default function App() {
       gridClasses: 'gridUnit'
     },
     {
-      onClick: handleMath,
+      onClick: () => handleMath('='),
       text: '=',
-      style: { backgroundColor: 'darkgrey' },
       classes: 'button mathButton',
       gridClasses: 'gridMathButton gridUnit '
     }
@@ -131,29 +132,80 @@ export default function App() {
       if (String(value).includes('.') || String(value) === '.') {
         setDisabled(true);
       }
+
       previousValue = textValue;
       setTextValue(String(previousValue) + value);
     }
   }
 
-  function handlePercent() {}
+  function handleMath(sign) {
+    if (sign !== previousSign) {
+      let completeTextArray = String(textValue).split(' ');
+      let textWithoutSign = completeTextArray[0];
+      let newTextValue = String(textValue) + ' ' + sign + ' ';
+      let textValueArray = newTextValue.split(' ');
+      setPreviousSign(sign);
 
-  function handleMath() {
-    textValue = textValue.replace(/\s/g, '');
-    //setTextValue(eval(textValue));
-    //ANVÄND ALDRIG EVAL()
-    // function looseJsonParse(obj) {return Function(`"use strict";return (${obj})`)();}
-    //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval#never_use_eval!
+      if (textValueArray[2] === '' && textValueArray[3] !== undefined) {
+        sign = textValueArray[3];
+        newTextValue = textWithoutSign + ' ' + sign + ' ';
+        setTextValue(newTextValue);
+        textValueArray = newTextValue.split(' ');
+      }
+
+      setTextValue(newTextValue);
+
+      if (textValueArray[2] !== '') {
+        calculate(
+          textValueArray[0],
+          textValueArray[1],
+          textValueArray[2],
+          textValueArray[3]
+        );
+      }
+    }
+  }
+
+  function calculate(value1, sign, value2, nextSign) {
+    let result;
+
+    console.log(arguments);
+
+    switch (sign) {
+      case '*':
+        result = Number(value1) * Number(value2);
+        break;
+      case '-':
+        result = Number(value1) - Number(value2);
+        break;
+      case '+':
+        result = Number(value1) + Number(value2);
+        break;
+      case '/':
+        result = Number(value1) / Number(value2);
+        break;
+      case '%':
+        result = Number(value1) % Number(value2);
+        break;
+      default:
+        return;
+    }
+
+    if (nextSign !== '=') {
+      setTextValue(result.toFixed(4) + ' ' + nextSign + ' ');
+    } else {
+      setTextValue(result.toFixed(4));
+    }
   }
 
   function handleNegative() {
-    setTextValue(Number(textValue) * -1);
+    setTextValue(textValue * -1);
   }
 
   function handleAC() {
     setDisabled(false);
     setTextValue(0);
-    previousValue = 0;
+    previousValue = '';
   }
 
   return (
