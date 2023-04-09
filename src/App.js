@@ -149,8 +149,8 @@ export default function App() {
       if (textValueArray[2] === '' && textValueArray[3] !== undefined) {
         sign = textValueArray[3];
         newTextValue = textWithoutSign + ' ' + sign + ' ';
-        setTextValue(newTextValue);
         textValueArray = newTextValue.split(' ');
+        setTextValue(newTextValue);
       }
 
       setTextValue(newTextValue);
